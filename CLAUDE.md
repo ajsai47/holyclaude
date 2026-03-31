@@ -1,18 +1,19 @@
 # HolyClaude
 
-Five tools, one agent. HolyClaude combines persistent memory, structured workflows,
-virtual team review, headless browsing, and autonomous experimentation into a single
-Claude Code plugin.
+Six tools, one agent. HolyClaude combines persistent memory, structured workflows,
+virtual team review, headless browsing, autonomous experimentation, and Anthropic's
+official plugin collection into a single Claude Code plugin.
 
 ## Architecture
 
 ```
-Layer 5: Research    /autoloop         Autonomous experiment loops
-Layer 4: Team        /office-hours ... Virtual team review & deployment
-Layer 3: Workflow    /spec /plan ...   Structured dev process
-Layer 2: Browser     /browse           Headless Chrome automation
-Layer 1: Memory      /mem-search ...   Persistent cross-session memory
-Layer 0: Claude Code                   Foundation runtime
+Layer 6: Research    /autoloop            Autonomous experiment loops
+Layer 5: Team        /office-hours ...    Virtual team review & deployment
+Layer 4: Workflow    /spec /plan ...      Structured dev process
+Layer 3: Plugins     /feature-dev ...     Anthropic official plugins (14)
+Layer 2: Browser     /browse              Headless Chrome automation
+Layer 1: Memory      /mem-search ...      Persistent cross-session memory
+Layer 0: Claude Code                      Foundation runtime
 ```
 
 Each layer builds on those below it. Memory persists context across sessions.
@@ -80,6 +81,26 @@ Virtual team of specialists who review, QA, and ship your work.
 | `/retro` | Post-ship retrospective |
 | `/autoplan` | Auto-generate a plan from a goal |
 
+### Plugins Layer (nirholas/claude-code)
+
+14 official Anthropic plugins with commands, agents, and skills.
+
+| Command | What It Does |
+|---------|-------------|
+| `/feature-dev` | Guided 7-phase feature development workflow |
+| `/commit` | Smart git commit with message generation |
+| `/commit-push-pr` | Commit, push, and create PR in one step |
+| `/review-pr` | Multi-agent PR review (comments, tests, errors, types, simplification) |
+| `/hookify` | Create custom hooks from conversation patterns |
+| `/ralph-loop` | Self-referential iteration until task completion |
+| `/create-plugin` | 8-phase guided plugin creation workflow |
+
+**Agents**: code-architect, code-explorer, code-simplifier, comment-analyzer,
+silent-failure-hunter, type-design-analyzer, conversation-analyzer, plugin-validator
+
+**Dev skills** (in `skills/dev/`): agent-development, command-development,
+hook-development, mcp-integration, plugin-settings, plugin-structure, skill-development
+
 ### Browser Layer
 
 Headless Chrome for testing and research. Use `/browse` for all web browsing.
@@ -126,9 +147,11 @@ holyclaude/
     workflow/                  /spec, /plan, /subagent-dev, /tdd
     team/                      /office-hours, /review, /ship, /qa, etc.
     research/autoloop/         /autoloop
-  agents/                      Agent definitions (experiment-runner)
+  agents/                      15 agent definitions
   browse/                      Headless browser binary and source
-  commands/                    CLI commands
+  commands/                    12 slash commands
+  plugins/                     14 Anthropic official plugins (full source)
+  examples/                    Hook and settings examples
   setup                        One-line installer
   package.json                 Dependencies
 ```

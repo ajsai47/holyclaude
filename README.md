@@ -2,19 +2,24 @@
 
 **The Ultimate AI Coding Agent**
 
-Five tools combined into one Claude Code plugin: persistent memory, structured workflows,
-virtual team review, headless browsing, and autonomous experimentation.
+Six tools combined into one Claude Code plugin: persistent memory, structured workflows,
+virtual team review, headless browsing, autonomous experimentation, and Anthropic's
+official plugin collection.
 
 ```
 +---------------------------------------------------+
-|              Layer 5: RESEARCH                     |
+|              Layer 6: RESEARCH                     |
 |         /autoloop - autonomous experiments         |
 +---------------------------------------------------+
-|              Layer 4: TEAM                         |
+|              Layer 5: TEAM                         |
 |   /office-hours /review /ship /qa /investigate     |
 +---------------------------------------------------+
-|              Layer 3: WORKFLOW                      |
+|              Layer 4: WORKFLOW                     |
 |        /spec /plan /subagent-dev /tdd              |
++---------------------------------------------------+
+|              Layer 3: PLUGINS                      |
+|  /feature-dev /commit /review-pr /hookify          |
+|  14 official Anthropic plugins                     |
 +---------------------------------------------------+
 |              Layer 2: BROWSER                      |
 |          /browse - headless Chrome                 |
@@ -101,6 +106,18 @@ Headless Chrome automation for testing and web research.
 - Compiled binary for fast startup
 - Full Playwright/Puppeteer support
 
+### Plugins (nirholas/claude-code)
+
+14 official Anthropic plugins, integrated and ready to use.
+
+- `/feature-dev` -- Guided 7-phase feature development with code-explorer, code-architect, and code-reviewer agents
+- `/commit` + `/commit-push-pr` -- Smart git workflow automation
+- `/review-pr` -- Multi-agent PR review (6 specialized agents: comments, tests, errors, types, code quality, simplification)
+- `/hookify` -- Create custom hooks from conversation analysis
+- `/ralph-loop` -- Self-referential iteration loops until task completion
+- `/create-plugin` -- 8-phase guided plugin creation
+- Security guidance, output style hooks, frontend design skills, and more
+
 ### Research (autoresearch)
 
 Autonomous experimentation loops inspired by karpathy/autoresearch.
@@ -129,6 +146,7 @@ HolyClaude combines the work of:
 - [Claude-Mem](https://github.com/thedotmack/claude-mem) by thedotmack -- persistent memory system
 - [gstack](https://github.com/garrytan/gstack) by garrytan -- virtual team and deployment skills
 - [autoresearch](https://github.com/karpathy/autoresearch) by karpathy -- autonomous experimentation pattern
+- [claude-code plugins](https://github.com/nirholas/claude-code) by nirholas -- 14 official Anthropic plugins
 
 ## License
 

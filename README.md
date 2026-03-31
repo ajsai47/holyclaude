@@ -1,8 +1,39 @@
-# HolyClaude
+<div align="center">
+
+```
+ ██╗  ██╗ ██████╗ ██╗  ██╗   ██╗ ██████╗██╗      █████╗ ██╗   ██╗██████╗ ███████╗
+ ██║  ██║██╔═══██╗██║  ╚██╗ ██╔╝██╔════╝██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝
+ ███████║██║   ██║██║   ╚████╔╝ ██║     ██║     ███████║██║   ██║██║  ██║█████╗
+ ██╔══██║██║   ██║██║    ╚██╔╝  ██║     ██║     ██╔══██║██║   ██║██║  ██║██╔══╝
+ ██║  ██║╚██████╔╝███████╗██║   ╚██████╗███████╗██║  ██║╚██████╔╝██████╔╝███████╗
+ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝    ╚═════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+```
 
 **The Ultimate AI Coding Agent**
 
-Six open-source tools combined into one Claude Code plugin. Persistent memory, structured workflows, virtual team review, headless browsing, autonomous experimentation, and 13 official Anthropic plugins — all wired together and ready to go.
+*Six open-source tools. One plugin. Zero yolo coding.*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-blueviolet)](https://docs.anthropic.com/en/docs/claude-code)
+[![Skills](https://img.shields.io/badge/Skills-61-brightgreen)](#what-you-get)
+[![Agents](https://img.shields.io/badge/Agents-14-blue)](#what-you-get)
+[![Plugins](https://img.shields.io/badge/Plugins-13-orange)](#what-you-get)
+[![macOS](https://img.shields.io/badge/macOS-supported-lightgrey?logo=apple)](https://github.com/ajsai47/holyclaude)
+[![Linux](https://img.shields.io/badge/Linux-supported-lightgrey?logo=linux)](https://github.com/ajsai47/holyclaude)
+
+<br />
+
+[Installation](#installation) &bull; [Quick Start](#quick-start) &bull; [The Layers](#the-layers) &bull; [Credits](#credits)
+
+</div>
+
+---
+
+> **Your agent forgets everything between sessions.** It can't browse the web. It doesn't follow a process. Nobody reviews its work. And it definitely can't optimize itself overnight.
+>
+> **HolyClaude fixes all of that.**
+
+Persistent memory, structured workflows, virtual team review, headless browsing, autonomous experimentation, and 13 official Anthropic plugins — combined into one Claude Code plugin that actually works together.
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -37,6 +68,18 @@ Six open-source tools combined into one Claude Code plugin. Persistent memory, s
 | **Agents** | 14 | code-architect, code-reviewer, silent-failure-hunter |
 | **Plugins** | 13 | Full Anthropic official plugin collection |
 | **Hooks** | 6 lifecycle events | Setup, SessionStart, PostToolUse, Stop |
+
+## Before & After
+
+```diff
+- You:    "Build me a login page"
+- Claude: *writes code, forgets everything, ships without review*
+
++ You:    "Build me a login page"
++ Claude: *recalls past auth work → writes spec → gets CEO challenge →
++          plans steps → TDD builds → security review → QA in real
++          browser → ships PR → remembers everything for next time*
+```
 
 ## Installation
 
@@ -184,10 +227,10 @@ A virtual team of specialists who review your work like real colleagues. Each br
 Autonomous experimentation loops. Set a metric, point at files, let it run.
 
 ```bash
-/autoloop performance     # Benchmark, modify, keep if faster
-/autoloop bundle-size     # Build, modify imports, keep if smaller
-/autoloop test-coverage   # Add tests, measure coverage, keep if higher
-/autoloop prompt-engineering  # Modify prompts, evaluate, keep if better
+/autoloop performance          # Benchmark, modify, keep if faster
+/autoloop bundle-size          # Build, modify imports, keep if smaller
+/autoloop test-coverage        # Add tests, measure coverage, keep if higher
+/autoloop prompt-engineering   # Modify prompts, evaluate, keep if better
 ```
 
 **How it works:** Creates an experiment branch, then loops: modify → evaluate → compare → keep or discard → log to `experiments.tsv` → repeat. Runs indefinitely until interrupted. Every experiment is logged so you can review what was tried.
@@ -254,7 +297,7 @@ holyclaude/
 
 ## Credits
 
-HolyClaude stands on the shoulders of:
+HolyClaude stands on the shoulders of giants:
 
 | Project | Author | What it provides |
 |---------|--------|-----------------|
@@ -265,6 +308,24 @@ HolyClaude stands on the shoulders of:
 | [autoresearch](https://github.com/karpathy/autoresearch) | karpathy | Autonomous experimentation loop pattern |
 | [claude-code plugins](https://github.com/nirholas/claude-code) | nirholas | 13 official Anthropic plugins with agents and skills |
 
+## Contributing
+
+Found a bug? Want to add a skill? PRs welcome.
+
+1. Fork the repo
+2. Create your branch (`git checkout -b feat/my-skill`)
+3. Add your skill to the appropriate layer in `skills/`
+4. Test with `./setup` and verify slash-command discovery
+5. Open a PR
+
 ## License
 
-MIT
+MIT — do whatever you want with it.
+
+---
+
+<div align="center">
+
+**If HolyClaude makes your agent smarter, [give it a star](https://github.com/ajsai47/holyclaude)**
+
+</div>

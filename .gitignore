@@ -5,3 +5,4 @@ memory/scripts/claude-mem
 run.log
 experiments.tsv
 .DS_Store
+.gstack/

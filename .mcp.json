@@ -3,7 +3,7 @@
     "claude-mem": {
       "command": "node",
       "args": ["memory/scripts/mcp-server.cjs"],
-      "cwd": "${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/holyclaude}",
+      "cwd": "${CLAUDE_PLUGIN_ROOT:-$HOME/holyclaude}",
       "env": {
         "CLAUDE_MEM_DATA_DIR": "${HOME}/.claude-mem",
         "NODE_ENV": "production"

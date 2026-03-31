@@ -147,10 +147,10 @@ holyclaude/
     workflow/                  /spec, /plan, /subagent-dev, /tdd
     team/                      /office-hours, /review, /ship, /qa, etc.
     research/autoloop/         /autoloop
-  agents/                      15 agent definitions
-  browse/                      Headless browser binary and source
-  commands/                    12 slash commands
-  plugins/                     14 Anthropic official plugins (full source)
+  agents/                      14 agent definitions
+  browse/                      Headless browser source (compiled on setup)
+  commands/                    9 slash commands
+  plugins/                     13 Anthropic official plugins (full source)
   examples/                    Hook and settings examples
   setup                        One-line installer
   package.json                 Dependencies

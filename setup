@@ -21,11 +21,21 @@ fi
 echo "→ Installing dependencies..."
 bun install
 
+# Create memory data directory
+mkdir -p "$HOME/.claude-mem"
+
 # Build browse binary
 if [[ -f browse/src/cli.ts ]]; then
   echo "→ Compiling headless browser binary..."
-  bun build --compile browse/src/cli.ts --outfile browse/dist/browse 2>/dev/null || echo "  (browse binary compilation skipped — source not yet ported)"
+  mkdir -p browse/dist
+  bun build --compile browse/src/cli.ts --outfile browse/dist/browse 2>/dev/null || echo "  (browse binary compilation skipped — will use interpreted mode)"
   [[ -f browse/dist/browse ]] && chmod +x browse/dist/browse
+fi
+
+# Install Playwright Chromium (needed for /browse skill)
+if command -v npx &>/dev/null; then
+  echo "→ Installing Playwright Chromium..."
+  npx playwright install chromium 2>/dev/null || echo "  (Playwright Chromium install skipped — install manually with: npx playwright install chromium)"
 fi
 
 # Symlink skills into Claude Code

@@ -1,15 +1,113 @@
 {
-  "description": "Security reminder hook that warns about potential security issues when editing files",
+  "description": "HolyClaude lifecycle hooks — memory persistence, workflow context, security warnings",
   "hooks": {
+    "Setup": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; \"$_R/hooks/setup.sh\"",
+            "timeout": 300
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; node \"$_R/memory/scripts/smart-install.js\"",
+            "timeout": 300
+          }
+        ]
+      },
+      {
+        "matcher": "startup|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; node \"$_R/memory/scripts/bun-runner.js\" \"$_R/memory/scripts/worker-service.cjs\" start",
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; node \"$_R/memory/scripts/bun-runner.js\" \"$_R/memory/scripts/worker-service.cjs\" hook claude-code context",
+            "timeout": 60
+          }
+        ]
+      },
+      {
+        "matcher": "startup|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; bash \"$_R/hooks/session-start\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; node \"$_R/memory/scripts/bun-runner.js\" \"$_R/memory/scripts/worker-service.cjs\" hook claude-code session-init",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py"
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; python3 \"$_R/hooks/security_reminder_hook.py\"",
+            "timeout": 10
           }
         ],
         "matcher": "Edit|Write|MultiEdit"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; node \"$_R/memory/scripts/bun-runner.js\" \"$_R/memory/scripts/worker-service.cjs\" hook claude-code observation",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; node \"$_R/memory/scripts/bun-runner.js\" \"$_R/memory/scripts/worker-service.cjs\" hook claude-code summarize",
+            "timeout": 120
+          },
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; node \"$_R/memory/scripts/bun-runner.js\" \"$_R/memory/scripts/worker-service.cjs\" hook claude-code session-complete",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "_R=\"${CLAUDE_PLUGIN_ROOT}\"; [ -z \"$_R\" ] && _R=\"$HOME/holyclaude\"; bash \"$_R/hooks/stop-hook.sh\"",
+            "timeout": 30
+          }
+        ]
       }
     ]
   }

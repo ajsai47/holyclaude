@@ -1,0 +1,23 @@
+{
+  "name": "holyclaude",
+  "description": "The Ultimate AI Coding Agent — combines Claude Code runtime, Superpowers workflow, Claude-Mem memory, gstack virtual team, and autoresearch experimentation into one plugin.",
+  "version": "1.0.0",
+  "author": {
+    "name": "AJ Green",
+    "email": "aj@aicollective.com"
+  },
+  "homepage": "https://github.com/ajsai47/holyclaude",
+  "repository": "https://github.com/ajsai47/holyclaude",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "memory",
+    "workflow",
+    "tdd",
+    "browser-automation",
+    "virtual-team",
+    "autonomous-research",
+    "ai-agent"
+  ]
+}

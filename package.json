@@ -1,0 +1,34 @@
+{
+  "name": "holyclaude",
+  "version": "1.0.0",
+  "description": "The Ultimate AI Coding Agent — memory + workflow + virtual team + browser + autonomous research",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "browse": "./browse/dist/browse"
+  },
+  "scripts": {
+    "build": "bun build --compile browse/src/cli.ts --outfile browse/dist/browse && chmod +x browse/dist/browse",
+    "setup": "./setup",
+    "test": "echo 'Run tests via the skills themselves'"
+  },
+  "dependencies": {
+    "diff": "^7.0.0",
+    "playwright": "^1.58.2",
+    "puppeteer-core": "^24.40.0",
+    "tree-sitter-cli": "^0.26.5",
+    "tree-sitter-c": "^0.24.1",
+    "tree-sitter-cpp": "^0.23.4",
+    "tree-sitter-go": "^0.25.0",
+    "tree-sitter-java": "^0.23.5",
+    "tree-sitter-javascript": "^0.25.0",
+    "tree-sitter-python": "^0.25.0",
+    "tree-sitter-ruby": "^0.23.1",
+    "tree-sitter-rust": "^0.24.0",
+    "tree-sitter-typescript": "^0.23.2"
+  },
+  "engines": {
+    "bun": ">=1.0.0",
+    "node": ">=18.0.0"
+  }
+}

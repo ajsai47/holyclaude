@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+echo "╔═══════════════════════════════════════════════╗"
+echo "║         HolyClaude — Setup                    ║"
+echo "║  Memory + Workflow + Team + Browser + Research ║"
+echo "╚═══════════════════════════════════════════════╝"
+echo
+
+# Check for bun
+if ! command -v bun &>/dev/null; then
+  echo "→ Installing bun..."
+  curl -fsSL https://bun.sh/install | bash
+  export PATH="$HOME/.bun/bin:$PATH"
+fi
+
+# Install deps
+echo "→ Installing dependencies..."
+bun install
+
+# Build browse binary
+if [[ -f browse/src/cli.ts ]]; then
+  echo "→ Compiling headless browser binary..."
+  bun build --compile browse/src/cli.ts --outfile browse/dist/browse 2>/dev/null || echo "  (browse binary compilation skipped — source not yet ported)"
+  [[ -f browse/dist/browse ]] && chmod +x browse/dist/browse
+fi
+
+# Symlink skills into Claude Code
+SKILLS_DIR="$HOME/.claude/skills"
+mkdir -p "$SKILLS_DIR"
+
+if [[ -L "$SKILLS_DIR/holyclaude" || -d "$SKILLS_DIR/holyclaude" ]]; then
+  rm -rf "$SKILLS_DIR/holyclaude"
+fi
+ln -s "$SCRIPT_DIR" "$SKILLS_DIR/holyclaude"
+echo "→ Symlinked to $SKILLS_DIR/holyclaude"
+
+# Create per-skill symlinks for direct slash-command access
+create_skill_link() {
+  local skill_name="$1"
+  local skill_path="$2"
+  if [[ -d "$skill_path" ]]; then
+    rm -rf "$SKILLS_DIR/$skill_name"
+    ln -s "$skill_path" "$SKILLS_DIR/$skill_name"
+    echo "  /$skill_name → $skill_path"
+  fi
+}
+
+echo "→ Creating skill shortcuts..."
+
+# Workflow skills (superpowers)
+for skill_dir in "$SCRIPT_DIR"/skills/workflow/*/; do
+  [[ -d "$skill_dir" ]] || continue
+  name=$(basename "$skill_dir")
+  create_skill_link "$name" "$skill_dir"
+done
+
+# Team skills (gstack)
+for skill_dir in "$SCRIPT_DIR"/skills/team/*/; do
+  [[ -d "$skill_dir" ]] || continue
+  name=$(basename "$skill_dir")
+  create_skill_link "$name" "$skill_dir"
+done
+
+# Memory skills
+for skill_dir in "$SCRIPT_DIR"/skills/memory/*/; do
+  [[ -d "$skill_dir" ]] || continue
+  name=$(basename "$skill_dir")
+  create_skill_link "$name" "$skill_dir"
+done
+
+# Research skills
+for skill_dir in "$SCRIPT_DIR"/skills/research/*/; do
+  [[ -d "$skill_dir" ]] || continue
+  name=$(basename "$skill_dir")
+  create_skill_link "$name" "$skill_dir"
+done
+
+# Install as Claude Code plugin
+PLUGIN_DIR="$HOME/.claude/plugins/holyclaude"
+if [[ -L "$PLUGIN_DIR" || -d "$PLUGIN_DIR" ]]; then
+  rm -rf "$PLUGIN_DIR"
+fi
+ln -s "$SCRIPT_DIR" "$PLUGIN_DIR"
+echo "→ Installed as plugin at $PLUGIN_DIR"
+
+# Memory system setup
+if [[ -f memory/scripts/setup.sh ]]; then
+  echo "→ Setting up memory system..."
+  bash memory/scripts/setup.sh
+fi
+
+echo
+echo "✓ HolyClaude installed successfully!"
+echo
+echo "Available skill categories:"
+echo "  /office-hours, /review, /ship, /qa, /browse   — Team (gstack)"
+echo "  /spec, /plan, /subagent-dev, /tdd              — Workflow (superpowers)"
+echo "  /mem-search, /make-plan, /do                    — Memory (claude-mem)"
+echo "  /autoloop                                       — Research (autoresearch)"
+echo
+echo "Restart Claude Code to activate hooks."
